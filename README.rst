@@ -21,9 +21,7 @@ Installation
 How-to
 ------------
 
-Run the following command:
-
-* ``./manage.py filebrowser_cleanup``
+* Run the following command: ``./manage.py filebrowser_cleanup``
 
 Changelog
 ------------
