@@ -74,7 +74,7 @@ class Command(BaseCommand):
         
         
     def get_all_filebrowse_values(self):
-        versions = settings.FILEBROWSER_VERSIONS if hasattr(settings, 'FILEBROWSER_VERSIONS') else fb_settings.VERSIONS
+        versions = getattr(settings, 'FILEBROWSER_VERSIONS', fb_settings.VERSIONS)
         files    = []
         
         for model, fields in self.get_all_models().items():
@@ -85,7 +85,7 @@ class Command(BaseCommand):
                         files.append(file_obj.path_full)
 
                         for version in versions:
-                            version_path = get_version_path(url_to_path(file_obj.__unicode__()), version)
+                            version_path = get_version_path(url_to_path(file_obj.url_save), version)
                             version_file = os.path.join(settings.MEDIA_ROOT, version_path)
                             if os.path.isfile(version_file):                                
                                 files.append(version_file)
@@ -95,7 +95,7 @@ class Command(BaseCommand):
         
     def get_files_on_disk(self):
         filelisting = []
-        upload_dir  = settings.FILEBROWSER_DIRECTORY if hasattr(settings, 'FILEBROWSER_DIRECTORY') else fb_settings.DIRECTORY
+        upload_dir  = getattr(settings, 'FILEBROWSER_DIRECTORY', fb_settings.DIRECTORY)
         rootpath    = os.path.join(settings.MEDIA_ROOT, upload_dir)
 
         for root, dirs, files in os.walk(rootpath):
