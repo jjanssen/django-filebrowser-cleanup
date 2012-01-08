@@ -8,7 +8,7 @@ With that data available it queries all used data against the upload filesystem 
 .. warning::
 
     Use this package at your own risk.
-    The app is based on the 3.0 version of the `No-Grapelli version of Django Filebrowser <https://github.com/wardi/django-filebrowser-no-grappelli>`_.
+    The app is based on the 3.0 version of the `No-Grappelli version of Django Filebrowser <https://github.com/wardi/django-filebrowser-no-grappelli>`_.
     I am not able to detect the exact version because the package doesn't have a appropriate version specification.
     
 
