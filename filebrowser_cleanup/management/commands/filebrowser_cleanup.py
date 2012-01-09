@@ -5,15 +5,17 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand
 from django.db import models
 
-from filebrowser.base import FileObject
-from filebrowser.fields import FileBrowseField
-from filebrowser.functions import get_version_path, url_to_path
-from filebrowser import settings as fb_settings
 
 try:
     import filebrowser
 except ImportError:
     raise ImproperlyConfigured("Why would you want to use filebrowser-cleanup if you don't have filebrowser?")
+
+
+from filebrowser.base import FileObject
+from filebrowser.fields import FileBrowseField
+from filebrowser.functions import get_version_path, url_to_path
+from filebrowser import settings as fb_settings
 
 
 class Command(BaseCommand):
