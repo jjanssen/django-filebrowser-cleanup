@@ -24,8 +24,8 @@ class Command(BaseCommand):
         make_option('-n', '--dry-run', action='store_true', dest='dry_run',
             default=False, help="Do everything except modify the filesystem."),
     )
-    
-    help = 'Cleanup all unused files on disk which are no longer used by the Filebrowse field.'
+    help = "Cleanup all unused files on disk which are no longer used by the Filebrowse field."
+
 
     def handle(self, **options):
         self.verbosity  = int(options.get('verbosity', 1))        
