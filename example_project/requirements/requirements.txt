@@ -1,0 +1,4 @@
+django==1.3.1
+PIL==1.1.7
+
+-e git+http://github.com/wardi/django-filebrowser-no-grappelli.git@0be5a31a703c1bf656b0fe244343d6017e3e6419#egg=django-filebrowser
