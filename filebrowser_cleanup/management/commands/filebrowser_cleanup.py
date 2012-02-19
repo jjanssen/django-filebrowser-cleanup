@@ -1,8 +1,9 @@
 import os, sys
+from optparse import make_option
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, NoArgsCommand
 from django.db import models
 
 
@@ -19,10 +20,16 @@ from filebrowser import settings as fb_settings
 
 
 class Command(BaseCommand):
+    option_list = BaseCommand.option_list + (
+        make_option('-n', '--dry-run', action='store_true', dest='dry_run',
+            default=False, help="Do everything except modify the filesystem."),
+    )
+    
     help = 'Cleanup all unused files on disk which are no longer used by the Filebrowse field.'
 
     def handle(self, **options):
-        self.verbosity = int(options.get('verbosity', 1))        
+        self.verbosity  = int(options.get('verbosity', 1))        
+        self.options    = options
         
         print
         print "WARNING: This will irreparably remove EVERYTHING from your uploads."
@@ -49,14 +56,17 @@ class Command(BaseCommand):
         
         counter = 0
         for del_file in obsolete_files:
-            counter += 1
             if self.verbosity > 1:
                 self.stdout.write("Deleting %s\n" % del_file)
             
-            try:
-                os.remove(del_file)
-            except OSError:
-                self.stdout.write("Unable to remove %s\n" % del_file)
+            if self.options['dry_run']:
+                self.stdout.write("Pretending to delete %s\n" % del_file)
+            else:
+                try:
+                    os.remove(del_file)
+                    counter += 1
+                except OSError:
+                    self.stdout.write("Unable to remove %s\n" % del_file)
             
         if counter:
             self.stdout.write("Deleted %d files on the disk.\n" % counter)

@@ -1,2 +1,5 @@
 *.pyc
 *.DS_Store
+
+example_project/example/static/admin
+example_project/example/static/filebrowser
